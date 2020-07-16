@@ -32,8 +32,9 @@ Please make sure the database name it's `travel_allowance` to be sure the backen
 After you imported the `trave_allowance.sql` into the DB successfully, please move to next step.
 
 
-### 2.[Travek Allowance Backend](https://github.com/daniel-moya/travel-allowance-backend)
+### 2.[Travel Allowance Backend](https://github.com/daniel-moya/travel-allowance-backend)
 Clone the Backend repo. `travel-allowance-backend`. You can use the above link to the github repo.
+<br>
 `git clone https://github.com/daniel-moya/travel-allowance-backend`
 `cd travel-allowance-backend`
 
@@ -52,8 +53,9 @@ For this step you need:
 
 ## 3.[Travel Allowance Frontend](https://github.com/daniel-moya/travel-allowance-frontend)
 Clone the Backend repo. `travel-allowance-frontend`. You can use the above link to the github repo.
+<br>
 `git clone https://github.com/daniel-moya/travel-allowance-frontend`
-`cd travel-allowance-frontend
+`cd travel-allowance-frontend`
 
 ### Additional
 For this step you need:
