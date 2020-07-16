@@ -24,9 +24,7 @@ You can check the docs [here](https://github.com/daniel-moya/travel-allowance-fr
 
 ## Requirements
 ### 1. MySQL DATABASE
-You need a server with a MySQL Database Manager, such as XAMPP.  After the installation, you must create a new database with the name `travel_allowance`. Then import the the database backup file `trave_allowance.sql` inside the root of the project.
-
-`keiron_app.sql`
+You need a server with a MySQL Database Manager, such as XAMPP.  After the installation, you must create a new database with the name `travel_allowance`. Then import the the database backup file `travel_allowance.sql` inside the root of the project.
 
 Please make sure the database name it's `travel_allowance` to be sure the backend will make connection with the DB. 
 
@@ -73,7 +71,7 @@ For this step you need:
 You must run 3 servers at the same time.
 - Travel Allowance Backend (Default: http://localhost:5000/)
 - Travel Allowance Frontend (Default: http://localhost:3000/)
-- MySQL Database 
+- MySQL Database with `travel_allowance.sql`
 
 
 
