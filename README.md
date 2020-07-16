@@ -24,7 +24,7 @@ You can check the **frontend docs** [here](https://github.com/daniel-moya/travel
 
 ## Requirements
 ### 1. MySQL DATABASE
-You need a server with a MySQL Database Manager, such as XAMPP.  After the installation, you must create a new database with the name `travel_allowance`. Then import the the database backup file `travel_allowance.sql` inside the root of the project.
+You need a server with a MySQL Database Manager, such as XAMPP.  After the installation, you must create a new database with the name `travel_allowance`. Then import the database backup file into the created database. You will the file `travel_allowance.sql` inside the root of this project.
 
 Please make sure the database name it's `travel_allowance` to be sure the backend will make connection with the DB. 
 
