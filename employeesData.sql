@@ -1,0 +1,7 @@
+INSERT INTO `travel`(`employee`, `transport`, `distance`, `workdays`) VALUES ('Hein','Bike',12,5)
+INSERT INTO `travel`(`employee`, `transport`, `distance`, `workdays`) VALUES ('Florian','Bus',15,4)
+INSERT INTO `travel`(`employee`, `transport`, `distance`, `workdays`) VALUES ('Wobbe','Bike',4,3)
+INSERT INTO `travel`(`employee`, `transport`, `distance`, `workdays`) VALUES ('Dolf','Car',20,5)
+INSERT INTO `travel`(`employee`, `transport`, `distance`, `workdays`) VALUES ('Loannis','Train',100,5)
+INSERT INTO `travel`(`employee`, `transport`, `distance`, `workdays`) VALUES ('Ben','Bike',8,4.5)
+INSERT INTO `travel`(`employee`, `transport`, `distance`, `workdays`) VALUES ('Hans','Car',150,2)
