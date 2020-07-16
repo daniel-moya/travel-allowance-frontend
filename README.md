@@ -20,7 +20,7 @@ https://api.staging.yeshugo.com/applicant/travel_types.
 employee, transport, travelled distance, compensation for the entire month and the payment date.
 
 # DOCS 
-You can check the docs [here](https://github.com/daniel-moya/travel-allowance-frontend/blob/master/docs)
+You can check the **frontend docs** [here](https://github.com/daniel-moya/travel-allowance-frontend/blob/master/docs)
 
 ## Requirements
 ### 1. MySQL DATABASE
