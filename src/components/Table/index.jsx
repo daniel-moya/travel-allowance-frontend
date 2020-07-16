@@ -9,12 +9,37 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import moment from 'moment';
+import { CSVLink } from "react-csv";
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  export: {
+    background: '#3F51B5',
+    color: 'white',
+    margin: '10px',
+    padding: '1rem',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    borderRadius: '10px',
+  },
+  info: {
+    margin: '30px 0',
+    display: 'flex',
+    justifyContent: 'space-around'
+  }
 });
+
+const headers = [
+  { label: "Employee", key: "employee" },
+  { label: "Transport", key: "transport" },
+  { label: "Distance", key: "distance" },
+  { label: "Workdays", key: "workdays" },
+  { label: "Compensation", key: "compensation" },
+  { label: "Payment Date", key: "paymentDate" }
+];
 
 function SimpleTable({ allowance }) {
   const classes = useStyles();
@@ -22,8 +47,10 @@ function SimpleTable({ allowance }) {
   const {
     allowanceData,
     getAllowanceData,
+    compensationRate,
     calculateEmployeeCompensation,
     dataLength,
+    loading,
   } = allowance;
 
   useEffect(() => {
@@ -51,13 +78,29 @@ function SimpleTable({ allowance }) {
     .set("date", 1)
     .isoWeekday(8);
 
-  const start = startDate._d;
-  const end = endDate._d;
+  const start = startDate.format('MMMM dddd Do YYYY');
+  const end = endDate.format('MMMM dddd Do YYYY');
 
   return (
     <React.Fragment>
       <h2>{ dataLength } Employees</h2>
-      <h3>Month  { `${start} - ${end}` }</h3>
+      <div className={ classes.info }>
+        <div>
+          <Typography variant="h6">From: <span>{ start }</span> </Typography>
+          <Typography variant="h6">Payment Date: <span>{ end }</span></Typography>
+        </div>
+        <CSVLink
+          data={ allowanceData }
+          headers={ headers }
+          filename={ "employees_travel_allowance.csv" }
+          separator={ ";" }
+          className={ classes.export }
+          onClick={ () => alert('File Downloaded Successfully') }
+        >
+          Export
+      </CSVLink>
+      </div>
+
       <TableContainer component={ Paper }>
         <Table className={ classes.table } aria-label="simple table">
           <TableHead>

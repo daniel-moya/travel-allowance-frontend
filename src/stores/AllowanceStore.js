@@ -1,7 +1,7 @@
 import { observable, action, decorate, computed } from 'mobx';
 import allowance from '../api/allowance';
 import { valuesBetween } from '../utils/math';
-import { monthBussinessDays } from '../utils/date';
+import { monthBussinessDays, nextMonth } from '../utils/date';
 import moment from 'moment';
 
 class AllowanceStore {
@@ -17,7 +17,6 @@ class AllowanceStore {
       .getAllowance()
       .then((res) => {
         this.loading = false;
-        console.log(res.data)
         this.allowanceData = res.data;
       })
       .catch((err) => {
@@ -30,9 +29,11 @@ class AllowanceStore {
   }
 
   calculateEmployeeCompensation = () => {
+    this.loading = true;
     allowance
       .getCompensationRate()
       .then((res) => {
+        this.loading = false;
         this.compensationRate = res.data;
         this.allowanceData.map(employee => {
           const { distance, workdays } = employee;
@@ -63,6 +64,8 @@ class AllowanceStore {
           // Calculate Allowance Price per week
           const result = totalRate * totalDistance * workedMonth;
 
+          employee.paymentDate = nextMonth();
+
           return employee.compensation = result;
         })
       })
@@ -75,6 +78,7 @@ class AllowanceStore {
 decorate(AllowanceStore, {
   allowanceData: observable,
   getAllowanceData: action,
+  compensationRate: observable,
   calculateEmployeeCompensation: action,
   dataLength: computed,
 });

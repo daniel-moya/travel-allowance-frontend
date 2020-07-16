@@ -11,6 +11,20 @@ export function workday_count(start, end) {
   return wfirst + Math.floor(days) + wlast; // get the total
 }
 
+export function nextMonth() {
+  const next = moment()
+    .add(1, "months")
+    .month();
+
+  const endDate = moment()
+    .set("year", 2020)
+    .set("month", next)
+    .set("date", 1)
+    .isoWeekday(8);
+
+  return endDate;
+}
+
 export function monthBussinessDays() {
   const next = moment()
     .add(1, "months")
