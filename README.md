@@ -1,5 +1,5 @@
 
-### Description
+# Description
 Create a small application which provides a monthly overview of the travel allowance for the employees of a
 company for the current year.
 
@@ -19,11 +19,12 @@ https://api.staging.yeshugo.com/applicant/travel_types.
 - The output of the application should be a CSV file which should contain the following columns:
 employee, transport, travelled distance, compensation for the entire month and the payment date.
 
+# DOCS 
+You can check the **frontend docs** [here](https://github.com/daniel-moya/travel-allowance-frontend/blob/master/docs)
+
 ## Requirements
 ### 1. MySQL DATABASE
-You need a server with a MySQL Database Manager, such as XAMPP.  After the installation, you must create a new database with the name `travel_allowance`. Then import the the database backup file `trave_allowance.sql` inside the root of the project.
-
-`keiron_app.sql`
+You need a server with a MySQL Database Manager, such as XAMPP.  After the installation, you must create a new database with the name `travel_allowance`. Then import the the database backup file `travel_allowance.sql` inside the root of the project.
 
 Please make sure the database name it's `travel_allowance` to be sure the backend will make connection with the DB. 
 
@@ -70,7 +71,7 @@ For this step you need:
 You must run 3 servers at the same time.
 - Travel Allowance Backend (Default: http://localhost:5000/)
 - Travel Allowance Frontend (Default: http://localhost:3000/)
-- MySQL Database 
+- MySQL Database with `travel_allowance.sql`
 
 
 
