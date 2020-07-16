@@ -28,7 +28,8 @@ class AllowanceStore {
     return this.allowanceData.length;
   }
 
-  calculateEmployeeCompensation = () => {
+  calculateEmployeeCompensation = (nextPrev = 1) => {
+    console.log('nextPrev', nextPrev)
     this.loading = true;
     allowance
       .getCompensationRate()
@@ -49,7 +50,8 @@ class AllowanceStore {
             if (valuesBetween(employee.distance, min_km, max_km)) totalRate *= 2;
           }
 
-          const bussinessDays = monthBussinessDays();
+          // calculating Compensation
+          const bussinessDays = monthBussinessDays(nextPrev);
           const weeks = Math.round(bussinessDays / 7) + 1;
 
 
@@ -64,7 +66,8 @@ class AllowanceStore {
           // Calculate Allowance Price per week
           const result = totalRate * totalDistance * workedMonth;
 
-          employee.paymentDate = nextMonth();
+          const date = nextMonth();
+          employee.paymentDate = date.format('dddd, MMMM Do YYYY');
 
           return employee.compensation = result;
         })

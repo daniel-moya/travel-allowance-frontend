@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { inject, observer } from 'mobx-react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -11,6 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import moment from 'moment';
 import { CSVLink } from "react-csv";
 import { Typography } from '@material-ui/core';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 const useStyles = makeStyles({
   table: {
@@ -29,6 +31,19 @@ const useStyles = makeStyles({
     margin: '30px 0',
     display: 'flex',
     justifyContent: 'space-around'
+  },
+  arrows: {
+    margin: '30px 0',
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
+  icons: {
+    cursor: 'pointer',
+    padding: '1rem',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    background: 'transparent',
+    border: 'none'
   }
 });
 
@@ -44,6 +59,8 @@ const headers = [
 function SimpleTable({ allowance }) {
   const classes = useStyles();
 
+  const [monthIndex, setMonthIndex] = useState(1);
+
   const {
     allowanceData,
     getAllowanceData,
@@ -58,11 +75,19 @@ function SimpleTable({ allowance }) {
   }, []);
 
   useEffect(() => {
-    calculateEmployeeCompensation();
-  }, [allowanceData])
+    calculateEmployeeCompensation(monthIndex);
+  }, [allowanceData, monthIndex])
+
+  const handlePrev = () => {
+    setMonthIndex((prevState) => prevState === 1 ? -1 : prevState - 1);
+  };
+
+  const handleNext = () => {
+    setMonthIndex((prevState) => prevState === -1 ? 1 : prevState + 1);
+  };
 
   const next = moment()
-    .add(1, "months")
+    .add(monthIndex, "months")
     .month();
 
 
@@ -78,27 +103,36 @@ function SimpleTable({ allowance }) {
     .set("date", 1)
     .isoWeekday(8);
 
-  const start = startDate.format('MMMM dddd Do YYYY');
-  const end = endDate.format('MMMM dddd Do YYYY');
+  const start = startDate.format('dddd, MMMM Do YYYY');
+  const end = endDate.format('dddd, MMMM Do YYYY');
 
   return (
     <React.Fragment>
       <h2>{ dataLength } Employees</h2>
       <div className={ classes.info }>
-        <div>
-          <Typography variant="h6">From: <span>{ start }</span> </Typography>
-          <Typography variant="h6">Payment Date: <span>{ end }</span></Typography>
-        </div>
-        <CSVLink
-          data={ allowanceData }
-          headers={ headers }
-          filename={ "employees_travel_allowance.csv" }
-          separator={ ";" }
-          className={ classes.export }
-          onClick={ () => alert('File Downloaded Successfully') }
-        >
-          Export
-      </CSVLink>
+        { !loading && (
+          <React.Fragment>
+            <div>
+              <Typography variant="h6">From: <span>{ start }</span> </Typography>
+              <Typography variant="h6">Payment Date: <span>{ end }</span></Typography>
+            </div>
+            <CSVLink
+              data={ allowanceData }
+              headers={ headers }
+              filename={ `employees_travel_allowance_${end}.csv` }
+              separator={ ";" }
+              className={ classes.export }
+              onClick={ () => alert('File Downloaded Successfully') }
+            >
+              Export
+         </CSVLink>
+          </React.Fragment>
+        ) }
+      </div>
+
+      <div className={ classes.arrows }>
+        <button className={ classes.icons } onClick={ handlePrev }><SkipPreviousIcon fontSize="large" color="primary" /></button>
+        <button className={ classes.icons } onClick={ handleNext }><SkipNextIcon fontSize="large" color="primary" /></button>
       </div>
 
       <TableContainer component={ Paper }>
@@ -106,10 +140,10 @@ function SimpleTable({ allowance }) {
           <TableHead>
             <TableRow>
               <TableCell>Employee</TableCell>
-              <TableCell align="right">Transport</TableCell>
-              <TableCell align="right">Distance. Km/One Way</TableCell>
-              <TableCell align="right">Workdays. Per Week</TableCell>
-              <TableCell align="right">Compensation</TableCell>
+              <TableCell>Transport</TableCell>
+              <TableCell>Distance. Km/One Way</TableCell>
+              <TableCell>Workdays. Per Week</TableCell>
+              <TableCell>Compensation</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -118,16 +152,16 @@ function SimpleTable({ allowance }) {
                 <TableCell component="th" scope="row">
                   { row.employee }
                 </TableCell>
-                <TableCell align="right">{ row.transport }</TableCell>
-                <TableCell align="right">{ row.distance }</TableCell>
-                <TableCell align="right">{ row.workdays }</TableCell>
-                <TableCell align="right">{ row.compensation } $</TableCell>
+                <TableCell>{ row.transport }</TableCell>
+                <TableCell>{ row.distance }</TableCell>
+                <TableCell>{ row.workdays }</TableCell>
+                <TableCell>{ Math.round(row.compensation * 100 / 100) } $</TableCell>
               </TableRow>
             )) }
           </TableBody>
         </Table>
       </TableContainer>
-    </React.Fragment>
+    </React.Fragment >
   );
 }
 

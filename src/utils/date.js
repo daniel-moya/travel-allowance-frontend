@@ -25,9 +25,10 @@ export function nextMonth() {
   return endDate;
 }
 
-export function monthBussinessDays() {
+export function monthBussinessDays(nextPrev = 1) {
+  console.log('DATE', nextPrev)
   const next = moment()
-    .add(1, "months")
+    .add(nextPrev, "months")
     .month();
 
 
@@ -42,6 +43,10 @@ export function monthBussinessDays() {
     .set("month", next)
     .set("date", 1)
     .isoWeekday(8);
+
+  console.log(startDate);
+
+  console.log(endDate);
 
   return workday_count(startDate, endDate);
 }
