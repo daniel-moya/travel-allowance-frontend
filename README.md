@@ -1,5 +1,5 @@
 
-### Description
+# Description
 Create a small application which provides a monthly overview of the travel allowance for the employees of a
 company for the current year.
 
@@ -18,6 +18,9 @@ https://api.staging.yeshugo.com/applicant/travel_types.
 - Overview of monthly travel allowances per Employee.
 - The output of the application should be a CSV file which should contain the following columns:
 employee, transport, travelled distance, compensation for the entire month and the payment date.
+
+# DOCS 
+You can check the docs [here](https://github.com/daniel-moya/travel-allowance-frontend/blob/master/docs)
 
 ## Requirements
 ### 1. MySQL DATABASE
