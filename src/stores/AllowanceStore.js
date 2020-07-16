@@ -2,7 +2,6 @@ import { observable, action, decorate, computed } from 'mobx';
 import allowance from '../api/allowance';
 import { valuesBetween } from '../utils/math';
 import { monthBussinessDays, nextMonth } from '../utils/date';
-import moment from 'moment';
 
 class AllowanceStore {
   compensationRate = {};
@@ -55,9 +54,7 @@ class AllowanceStore {
           const weeks = Math.round(bussinessDays / 7) + 1;
 
 
-
-          const workedDays = 4;
-          const unworkedDays = 5 - employee.workdays;
+          const unworkedDays = 5 - workdays;
           const unworkedMonth = unworkedDays * weeks;
           const workedMonth = bussinessDays - unworkedMonth - 1;
 

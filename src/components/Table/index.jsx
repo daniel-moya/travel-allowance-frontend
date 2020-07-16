@@ -28,19 +28,20 @@ const useStyles = makeStyles({
     borderRadius: '10px',
   },
   info: {
-    margin: '30px 0',
+    marginTop: '30px',
     display: 'flex',
     justifyContent: 'space-around'
   },
+  dates: {
+    maxWidth: '60%'
+  },
   arrows: {
-    margin: '30px 0',
     display: 'flex',
     justifyContent: 'space-around',
   },
   icons: {
     cursor: 'pointer',
     padding: '1rem',
-    cursor: 'pointer',
     textDecoration: 'none',
     background: 'transparent',
     border: 'none'
@@ -112,7 +113,7 @@ function SimpleTable({ allowance }) {
       <div className={ classes.info }>
         { !loading && (
           <React.Fragment>
-            <div>
+            <div className={ classes.dates }>
               <Typography variant="h6">From: <span>{ start }</span> </Typography>
               <Typography variant="h6">Payment Date: <span>{ end }</span></Typography>
             </div>

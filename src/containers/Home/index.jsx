@@ -1,27 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { inject, observer } from 'mobx-react';
-import moment from 'moment';
 import clsx from 'clsx';
 import {
-  CssBaseline,
-  Drawer,
   AppBar,
   Toolbar,
-  List,
   Typography,
-  Divider,
-  Badge,
-  IconButton
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
 import Table from '../../components/Table';
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
