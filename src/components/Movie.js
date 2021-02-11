@@ -4,9 +4,8 @@ import axios from 'axios'
 import Autocomplete from './Autocomplete'
 import Summary from './Summary'
 
-export default function Movie() {
+export default function Movie0({ setMovieData, movieData }) {
   const [movieID, setMovieID] = useState('')
-  const [movieData, setMovieData] = useState({})
   const [showSummary, setShowSummary] = useState(false)
 
   useEffect(() => {
