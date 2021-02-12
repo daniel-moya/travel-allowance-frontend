@@ -1,120 +1,45 @@
 import React, { useEffect, useState } from 'react'
-const structureData = (data) => {
-  if (Object.keys(data).length === 0) {
-    return data
-  }
-  const {
-    Poster,
-    Title,
-    Genre,
-    Plot,
-    Awards,
-    BoxOffice,
-    Metascore,
-    imdbRating,
-    imdbVotes,
-  } = data
 
-  const boxOfficeNumber = parseInt(
-    BoxOffice.replace(/\$/g, '').replace(/,/g, '')
-  )
-  const metascoreNumber = parseInt(Metascore)
-  const imdbRatingNumber = parseFloat(imdbRating)
-  const imdbVotesNumber = parseInt(imdbVotes.replace(/,/g, ''))
-
-  const sumOfAwards = Awards.split(' ').reduce((prev, word) => {
-    const value = parseInt(word)
-    if (isNaN(value)) {
-      return prev
-    } else {
-      return prev + value
-    }
-  }, 0)
-
-  return {
-    Poster,
-    Title,
-    Genre,
-    Plot,
-    Achievements: [
-      {
-        title: 'Awards',
-        content: Awards,
-        isLoser: false,
-        stat: sumOfAwards,
-      },
-      {
-        title: 'Box Office',
-        content: BoxOffice,
-        isLoser: false,
-        stat: boxOfficeNumber,
-      },
-      {
-        title: 'Metascore',
-        content: Metascore,
-        isLoser: false,
-        stat: metascoreNumber,
-      },
-      {
-        title: 'IMDB Rating',
-        content: imdbRating,
-        isLoser: false,
-        stat: imdbRatingNumber,
-      },
-      {
-        title: 'IMDB Votes',
-        content: imdbVotes,
-        isLoser: false,
-        stat: imdbVotesNumber,
-      },
-    ],
-  }
-}
-
-const useMovieData = (firstMovie, secondMovie) => {
+const useMovieData = () => {
   const [firstMovieData, setFirstMovieData] = useState({})
   const [secondMovieData, setSecondMovieData] = useState({})
+  const [achievementsResults, setAchievementsResults] = useState([]);
 
-  useEffect(() => {
-    setSecondMovieData(structureData(secondMovie))
-    setFirstMovieData(structureData(firstMovie))
-  }, [firstMovie, secondMovie])
-
-  useEffect(() => {
+  const compareMovies = () => {
     if (
-      Object.keys(firstMovieData).length &&
-      Object.keys(secondMovieData).length
+        Object.keys(firstMovieData).length &&
+        Object.keys(secondMovieData).length
     ) {
-      console.log('llegamos aca')
-      firstMovieData.Achievements.forEach((item, index) => {
-        const secondMovieStat = secondMovieData.Achievements[index].stat
+      let achievements = [];
+      firstMovieData.Achievements.map((item, index) => {
+        const { title: achievementTitle, stat: firstMovieStat  } = item;
+        const { stat: secondMovieStat } = secondMovieData.Achievements[index];
 
-        if (item.stat > secondMovieStat) {
-          setSecondMovieData({
-            ...secondMovieData,
-            Achievements: secondMovieData.Achievements.map((achievement, i) => {
-              if (i === index) {
-                achievement.isLoser = true
-              }
-              return achievement
-            }),
-          })
-        } else if (item.stat < secondMovieStat) {
-          setFirstMovieData({
-            ...firstMovieData,
-            Achievements: firstMovieData.Achievements.map((achievement, i) => {
-              if (i === index) {
-                achievement.isLoser = true
-              }
-              return achievement
-            }),
-          })
-        }
+        // Null value for a tie result
+        let winnerId = null;
+        winnerId = (firstMovieStat > secondMovieStat) ? firstMovieData.id : winnerId;
+        winnerId = (firstMovieStat < secondMovieStat) ? secondMovieData.id : winnerId;
+
+        achievements.push({
+          achievementTitle,
+          winnerId,
+        })
       })
+      setAchievementsResults(achievements);
     }
-  }, [firstMovie, secondMovie])
+  };
 
-  return { firstMovieData, secondMovieData }
+  useEffect(() => {
+    compareMovies();
+  }, [firstMovieData, secondMovieData])
+
+  return {
+    firstMovieData,
+    secondMovieData,
+    setFirstMovieData,
+    setSecondMovieData,
+    achievementsResults,
+  }
 }
 
 export default useMovieData

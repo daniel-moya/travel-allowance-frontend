@@ -2,11 +2,8 @@ import React from 'react'
 
 import Achievement from './Achievement'
 
-export default function Summary({ movieData }) {
-  if (!Object.keys(movieData).length) {
-    return ''
-  }
-  const { Poster, Title, Genre, Plot, Achievements } = movieData
+export default function Summary({ movieData, achievementsResults }) {
+  const { id, Poster, Title, Genre, Plot, Achievements = [] } = movieData || {}
 
   return (
     <div className='summary'>
@@ -23,11 +20,14 @@ export default function Summary({ movieData }) {
         </div>
       </article>
       <div className='movie-achievements'>
-        {Achievements.map((achievement) => {
+        {Achievements.map((achievement, index) => {
+          const achievementResult = achievementsResults[index];
+          const { winnerId = null } = achievementResult || {};
           return (
             <Achievement
               key={achievement.title}
               achievementData={achievement}
+              winner={winnerId === id || winnerId === null}
             />
           )
         })}
